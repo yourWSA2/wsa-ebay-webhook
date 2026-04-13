@@ -5,7 +5,7 @@ import base64
 app = Flask(__name__)
 
 VERIFICATION_TOKEN = "WSAListingAutomationVerification12345"
-ENDPOINT = "https://wsa-ebay-webhook.onrender.com/notify"
+ENDPOINT = "https://wsa-ebay-webhook.onrender.com"
 
 @app.route("/notify", methods=["GET", "POST"])
 def notify():
