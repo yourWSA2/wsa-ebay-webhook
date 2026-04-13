@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify
 import hashlib
-import base64
 
 app = Flask(__name__)
 
@@ -12,10 +11,10 @@ def notify():
     challenge_code = request.args.get("challenge_code")
 
     if challenge_code:
-        challenge = challenge_code + VERIFICATION_TOKEN + ENDPOINT
-        digest = hashlib.sha256(challenge.encode("utf-8")).digest()
-        response = base64.b64encode(digest).decode()
-        return jsonify({"challengeResponse": response})
+        challenge_response = hashlib.sha256(
+            (challenge_code + VERIFICATION_TOKEN + ENDPOINT).encode("utf-8")
+        ).hexdigest()
+        return jsonify({"challengeResponse": challenge_response}), 200
 
     return "", 200
 
